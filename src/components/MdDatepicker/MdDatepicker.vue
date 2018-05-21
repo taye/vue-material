@@ -1,5 +1,5 @@
 <template>
-  <md-field :class="['md-datepicker', { 'md-native': !this.mdOverrideNative }]" md-clearable>
+  <md-field :class="['md-datepicker', { 'md-native': !this.mdOverrideNative }]" md-clearable @md-clear="onMdClear">
     <md-date-icon class="md-date-icon" @click.native="toggleDialog" />
     <md-input :type="type" ref="input" :value="modelDate" @input="onInput" @focus.native="onFocus" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
 
@@ -120,6 +120,10 @@
         if (this.mdOpenOnFocus) {
           this.toggleDialog()
         }
+      },
+      onMdClear () {
+        this.$emit('md-clear');
+        this.$emit('input', null);
       },
       dateToHTMLString (date) {
         if (date) {
